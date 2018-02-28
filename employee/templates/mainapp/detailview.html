@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+ {% include "siblings/sibilings_moda.html" with employee=object %}
+
+<div class='container'>
+  <div class="row featurette">
+     <div class=" mx-auto col-md-5">
+            <img class="featurette-image rounded-circle  mx-auto" src="{{ employee.image.url }}" alt="Generic placeholder image"  width="150" height="150">
+            <ul class="list-group list-group-flush">
+             
+           <li class="list-group-item">
+           <h2 class="featurette-heading">{{ object.full_name }} <br> 
+
+            {% if object.jop %}
+            <p>
+            <span class="text-muted"> {{object.jop}} </span></p>
+            {% endif %}
+          </h2>
+           </li>
+           <li class="list-group-item">
+             <div class="alert alert-dark" role="alert">
+              Work Info
+             </div>
+              <p class="lead"> Position : {{object.position}}</p>
+           </li>
+           <li class="list-group-item">
+             <div class="alert alert-dark" role="alert">
+              Salry Info 
+             </div>
+              <p class="lead"> Total Salary : {{salary_info.total_salary}}</p>
+              <a href="{{ salary_info.get_absolute_url }}"> Show Salary Details </a>
+           </li>
+           
+           </ul>
+      </div>
+          <div class="col-md-7">
+            <div class="alert alert-secondary" role="alert">
+              Employee Info
+            </div>
+            <p class="lead"> National Id : {{ object.national_id }} </p>
+            <p class="lead"> Age : {{object.age}} </p>
+            <p class="lead"> Date of birth : {{object.date_of_birth}} </p>
+             <p class="lead"> Place of birth : {{object.place_of_birth }} </p>
+             <p class="lead"> Country  : {{object.country  }} </p>
+             <p class="lead"> Nationality  : {{object.nationality  }} </p>
+              <p class="lead"> Gendar  : {{object.gendar  }} </p>
+              <li class="list-group-item">
+               <button class="btn btn-primary"  type="submit" data-toggle="modal"  data-target="#exampleModal2"> Update   
+                </button>
+          
+              <button class="btn btn-secondary"  type="submit" data-toggle="modal"  data-target="#sibilingsModa"
+              {% if object.maritial_status == 'single' %} disabled {% endif %}>  Add Sibilings   
+              </button>
+
+          </li>
+           <li class="list-group-item">
+              {% if messages %}
+              {% for mes in messages %}
+              {{ mes }}
+              {% endfor %} 
+              {% endif %}         
+              <form method='post' action="{% url 'delete' %}">
+                {% csrf_token %}
+                 <input type='hidden' value='{{ employee.id}}' name='employee_id'> 
+                 <button class='btn btn-link btn-sm '  type="submit" style='padding:0px;'  > Delete ? 
+                 </button>
+                </form>
+             </li>
+
+             <li class="list-group-item">
+            <div class="alert alert-secondary" role="alert">
+              Personal Info
+            </div>
+            <p class="lead">Maritial Status : {{object.maritial_status}} </p>
+             {% if object.maritial_status == 'married' %}
+                  
+                   {% include 'siblings/update_modal.html' with sibilings=sibilings %}
+              {% endif %}
+         
+             </li>
+                  
+      	     
+       
+          </div>
+  
+</div>
+</div>
+{% include "mainapp/modal_update.html" with employee=object %}
+
+
+
+{% endblock %}

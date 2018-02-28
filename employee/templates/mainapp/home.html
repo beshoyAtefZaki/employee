@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% url 'update' as update_url %}
+<div class="row">
+  <div class="col-12">
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Create Employee
+  </button>
+  {% include "mainapp/modal_create.html" %}
+
+  <hr>
+</div>
+
+</div>
+
+<div class="row justify-content-md-center">
+  {% for employee in objects %}
+  <div class="col-xl-5 col-sm-5 mb-5">
+
+    <div class="card" style="width: 14rem;">
+     
+        <img class="rounded-circle" 
+          style="max-height:10rem;"
+          src="{{ employee.image.url }}" 
+          alt="Employee image"/>
+        <div class="card-body">
+          <h5 class="card-title">{{ employee.full_name }}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Position : {{employee.position}}</li>
+         
+          <li class="list-group-item">
+            <a href="{{employee.get_absolute_url}}" class="card-link">View Details</a>
+         </li>          
+
+          </ul>
+       
+    
+    </div>
+    <br>
+  </div>
+  {% if forloop.counter|divisibleby:3 %}
+   <div class="col-12"><hr> </div>
+  {% endif %}
+  
+  {% endfor %}
+   
+</div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+
+
+<form method="post" action="{% url 'siblings:create' %}">
+	{% csrf_token %}
+	<div class ="row">
+		<input type='hidden' name="employee" value={{ employee.slug }}>
+
+	</div>
+	<div class ="row">
+		<div class="col-6">
+{{ form }}
+
+<button type="submit" class="btn btn-primary">Save</button>
+</div>
+</div>
+</form>
+

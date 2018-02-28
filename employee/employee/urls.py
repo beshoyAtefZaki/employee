@@ -1,26 +1,35 @@
 """employee URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import url
+from django.conf.urls import url ,include
 from django.contrib import admin
+from mainapp.views import(  home ,
+                            EmployeeDetailView,
+                            create,
+                            update_view,
+                            delete_view,
+                            )
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-]
+    url(r'^$',home, name='home') ,
+    url(r'^create/$',create, name='create') ,
+    url(r'^delete/$',delete_view, name='delete') ,
+    
+    url(r'^update/(?P<slug>[\w-]+)$',update_view,
+                     name='update') ,
+    url(r'^(?P<slug>[\w-]+)/$',
+            EmployeeDetailView.as_view() ,
+            name='detail'),
+
+     url(r'^siblings/',
+      include('siblings.urls',namespace="siblings")),
+
+     url(r'^salary/', include('salary.urls',
+                        namespace="salary")),
+                ]
 
 if settings.DEBUG:
     urlpatterns =  urlpatterns+static(settings.STATIC_URL,

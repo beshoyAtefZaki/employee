@@ -26,7 +26,7 @@ SECRET_KEY = 'k_a9+l-ij0%*1c=x!2z3yh_&=^o98(%e01l$o!&zvdwd(1l^@='
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+APPEND_SLASH=False
 
 # Application definition
 
@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainapp',
+    'siblings',
+    'salary',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

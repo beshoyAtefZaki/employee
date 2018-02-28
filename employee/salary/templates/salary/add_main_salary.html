@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+	<div class ="row ">
+		<div class="col-6 mx-auto">
+
+    <form class="form-signin" method="post" action="{% url 'salary:add' %}">
+     {% csrf_token %}
+      <h3 class="h3 mb-3 font-weight-normal">Please Add Salary </h3>
+      <h3 class="h3 mb-3 font-weight-normal">{{ employee.full_name }} </h3>
+      <input type="hidden" value={{ employee.id }} name="pk">
+      <label for="salary" class="sr-only">Salary</label>
+      <input type="text" id="salary" class="form-control" placeholder="Salary" name="salary" required autofocus>
+     <br>
+      {% if messages %}
+        {% for mes in messages %}
+        {{ mes }}
+        {% endfor %} <br>
+      {% endif %} 
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+      
+    </form>
+</div>
+  </div>
+</div>
+
+
+{% endblock %}
