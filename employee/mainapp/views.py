@@ -8,7 +8,9 @@ from siblings.models import Sibilings
 from siblings.forms import SibilingsForm
 from django.contrib import messages
 from salary.models import Salary
-
+#adding apis to this model 
+from rest_framework import generics
+from .serilizers import  EmployeeSerialzier
 
 def home(request):
 	form = EmployeeForm()
@@ -119,3 +121,10 @@ class EmployeeDetailView(DetailView):
 		
 		return context
 
+
+
+#create the api view 
+class EmployeeApi(generics.RetrieveUpdateDestroyAPIView):
+	lookup_field	= 'pk'
+	queryset		=  Employee.objects.all()
+	serializer_class = EmployeeSerialzier

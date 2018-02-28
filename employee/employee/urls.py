@@ -10,6 +10,7 @@ from mainapp.views import(  home ,
                             create,
                             update_view,
                             delete_view,
+                            EmployeeApi,
                             )
 
 urlpatterns = [
@@ -29,6 +30,8 @@ urlpatterns = [
 
      url(r'^salary/', include('salary.urls',
                         namespace="salary")),
+
+     url(r'^api/(?P<pk>\d+)/$', EmployeeApi.as_view(), name='api_view')
                 ]
 
 if settings.DEBUG:

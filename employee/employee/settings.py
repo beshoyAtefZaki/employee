@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'mainapp',
     'siblings',
     'salary',
-]
+    'rest_framework',
+    ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

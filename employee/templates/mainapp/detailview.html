@@ -32,7 +32,10 @@
               <p class="lead"> Total Salary : {{salary_info.total_salary}}</p>
               <a href="{{ salary_info.get_absolute_url }}"> Show Salary Details </a>
            </li>
-           
+            <li class="list-group-item">
+              {% url 'api_view' as api  %}
+              <a href="/api/{{object.id}}/">Use Django Api </a>
+              </li>
            </ul>
       </div>
           <div class="col-md-7">
