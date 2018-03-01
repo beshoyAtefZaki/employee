@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class ='container'>
+	{% if q %}
 <div class ='row'>
 	<div class ='col'>
 		<h4> <p> You search for  : {{ q }} </p></h4>
@@ -9,6 +10,7 @@
 	<hr>
 </div>
 <hr/>
+{% endif %}
 <div class ="row">
 
 {% for object in object_list %}
