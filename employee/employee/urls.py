@@ -12,6 +12,7 @@ from mainapp.views import(  home ,
                             delete_view,
                             EmployeeApi,
                             )
+from search.views import SearchEmployeeListView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -31,11 +32,16 @@ urlpatterns = [
      url(r'^salary/', include('salary.urls',
                         namespace="salary")),
 
-     url(r'^api/(?P<pk>\d+)/$', EmployeeApi.as_view(), name='api_view')
+     url(r'^api/(?P<pk>\d+)/$', EmployeeApi.as_view()
+        , name='api_view'),
+     url(r'^search',SearchEmployeeListView.as_view() ,
+                name='search'),
                 ]
 
 if settings.DEBUG:
-    urlpatterns =  urlpatterns+static(settings.STATIC_URL,
-    					 document_root=settings.STATIC_ROOT)
-    urlpatterns =  urlpatterns+static(settings.MEDIA_URL,
-    					 document_root=settings.MEDIA_ROOT)
+    urlpatterns =  urlpatterns+static(
+                settings.STATIC_URL,
+			    document_root=settings.STATIC_ROOT)
+    urlpatterns =  urlpatterns+static(
+                 settings.MEDIA_URL,
+				 document_root=settings.MEDIA_ROOT)

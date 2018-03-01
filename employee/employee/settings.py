@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'mainapp',
     'siblings',
     'salary',
+    'search',
     'rest_framework',
     ]
 MIDDLEWARE = [

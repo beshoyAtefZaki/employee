@@ -1,9 +1,12 @@
+import random
+import os
+
 from django.db import models
 from django.db.models.signals import pre_save
 from django.urls import reverse
+from django.db.models import Q
 from employee.utils import unique_slug_generator
-import random
-import os
+
 
 
 POSITION_CHOICES = (
@@ -40,6 +43,22 @@ def upload_image_path(instance,filename):
 		new_final_name =  instance.first_name+str(new_filenumber)
 	return f"{new_final_name}{ext}" 
 
+
+class EmployeeQuerySet(models.query.QuerySet):
+	def search(self,query):
+		lookup = (Q(first_name__icontains=query) |
+				  Q(last_name__icontains=query) |
+				  Q(middle_name__icontains=query) |
+				  Q(position__icontains=query) |
+				   Q(national_id__icontains=query)) 
+		return self.filter(lookup).distinct()
+
+class EmployeeManager(models.Manager):
+	def get_queryset(self):
+		return EmployeeQuerySet(self.model, using=self._db)
+	def search(self,query):
+		return self.get_queryset().search(query)	
+
 class Employee(models.Model):
 	first_name		= models.CharField(max_length=50)
 	last_name		= models.CharField(max_length=50)
@@ -69,6 +88,8 @@ class Employee(models.Model):
 	gendar 			=  models.CharField(max_length=50 ,
 						default ='Male' ,
 						choices=GENDAR_COICES)
+
+	objects 		= EmployeeManager()
 
 	def __str__(self):
 		return self.first_name
