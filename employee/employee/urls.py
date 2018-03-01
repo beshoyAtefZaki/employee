@@ -12,7 +12,7 @@ from mainapp.views import(  home ,
                             delete_view,
                             EmployeeApi,
                             )
-from search.views import SearchEmployeeListView
+from search.views import SearchEmployeeListView,search_api
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -36,6 +36,8 @@ urlpatterns = [
         , name='api_view'),
      url(r'^search',SearchEmployeeListView.as_view() ,
                 name='search'),
+       url(r'^sarch_api',search_api ,
+                name='sarch_api'),
                 ]
 
 if settings.DEBUG:
