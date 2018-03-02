@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
 {% url 'update' as update_url %}
 <div class="row">
   <div class="col-12">
@@ -21,10 +22,15 @@
 
     <div class="card" style="width: 14rem;">
      
-        <img class="rounded-circle" 
+         {% if employee.image %} <img class="rounded-circle" 
           style="max-height:10rem;"
           src="{{ employee.image.url }}" 
           alt="Employee image"/>
+          {% elif employee.gendar == "male" %}
+             <img class="featurette-image rounded-circle  mx-auto" src="{% static 'img/male.png'%}" alt="Generic placeholder image"  width="150" height="150">
+           {% elif employee.gendar == "female" %}
+             <img class="featurette-image rounded-circle  mx-auto" src="{% static 'img/female.png'%}" alt="Generic placeholder image"  width="150" height="150">
+          {% endif %}
         <div class="card-body">
           <h5 class="card-title">{{ employee.full_name }}</h5>
         </div>
@@ -41,7 +47,7 @@
     </div>
     <br>
   </div>
-  {% if forloop.counter|divisibleby:3 %}
+  {% if forloop.counter|divisibleby:2 %}
    <div class="col-12"><hr> </div>
   {% endif %}
   

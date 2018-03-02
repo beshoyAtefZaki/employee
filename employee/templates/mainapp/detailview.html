@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
  {% include "siblings/sibilings_moda.html" with employee=object %}
@@ -7,7 +7,12 @@
 <div class='container'>
   <div class="row featurette">
      <div class=" mx-auto col-md-5">
-            <img class="featurette-image rounded-circle  mx-auto" src="{{ employee.image.url }}" alt="Generic placeholder image"  width="150" height="150">
+      {% if object.image %}
+            <img class="featurette-image rounded-circle  mx-auto" src="{{ object.image.url }}" alt="Generic placeholder image"  width="150" height="150"> {% elif object.gendar == "male" %}
+             <img class="featurette-image rounded-circle  mx-auto" src="{% static 'img/male.png'%}" alt="Generic placeholder image"  width="150" height="150">
+             {% elif object.gendar == "female" %}
+             <img class="featurette-image rounded-circle  mx-auto" src="{% static 'img/female.png'%}" alt="Generic placeholder image"  width="150" height="150">
+             {% endif %}
             <ul class="list-group list-group-flush">
              
            <li class="list-group-item">

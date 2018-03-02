@@ -12,19 +12,18 @@
 <hr/>
 
 <div class ="row">
-<div class = "col-6">
-<div class="search-view">
+
 {% for object in object_list %}
-		
+		<div class = "col-6" id="search-view">
 		<h4>  <p> Employee Full name :{{ object.full_name }} </p></h4>
 		<h4>  <p> Employee id :{{ object.national_id }} </p></h4>
 		<h4>  <p> Employee position :{{ object.position }} </p></h4>
 		<a href="{{ object.get_absolute_url }}" > See more detai ? </a>
 		
-
+		</div>
 {% endfor %}
-</div>
-</div>
+
+
 </div>
 </div>
 {% endblock %}

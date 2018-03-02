@@ -1,0 +1,45 @@
+<script>
+
+        $(document).ready(function(){
+          if ( window.location.href.indexOf("search") != -1){
+          var SearchForm = $(".form-search")
+          var searchView =$(".search-view")
+          var searchFor =$(".search-for")
+          SearchForm.submit(function(e){
+            e.preventDefault();
+
+            var thisForm= $(this);
+            var endPoint = thisForm.attr("endpoint");
+            var httpMethod=thisForm.attr("method");
+            var formData = thisForm.serialize();
+
+            $.ajax({
+              url: endPoint,
+              method:httpMethod,
+              data:formData,
+              success:function(data){
+                  
+                  console.log("success");
+                   searchView.html(" "),
+                   searchFor.html(" ")
+                   searchFor.html("<h3> You search for : "+data.q+"</h3>"),
+
+                   $.each(data.employees , function(index,value){
+                      searchView.prepend("<h4>  <p> Employee Full name :" + value.full_name +"</p> </h4>" +
+                        "<h4>  <p> Employee id :"+ value.national_id +" </p></h4>" + "<h4>  <p> Employee position :"+ value.position  +"</p></h4>" +"<a href='"+ value.url +"' > See more detai ? </a> <br><hr>")
+                   }
+                    )
+                  
+              },
+               error:function(erroData){
+                  console.log("error")
+              }
+            })
+          })
+
+
+
+        }})
+
+
+    </script>

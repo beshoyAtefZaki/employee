@@ -27,7 +27,7 @@ def create(request):
 		first_name		= form.cleaned_data.get('first_name')
 		last_name 		= form.cleaned_data.get('last_name')
 		middle_name		= form.cleaned_data.get('middle_name')
-		image			= request.FILES['image']
+		image			= request.FILES.get('image')
 		national_id 	= form.cleaned_data.get('national_id')
 		position 		= form.cleaned_data.get('position')
 		jop 			= form.cleaned_data.get('jop')
