@@ -102,8 +102,9 @@
                    searchFor.html("<h3> You search for : "+data.q+"</h3>"),
 
                    $.each(data.employees , function(index,value){
-                      searchView.prepend("<h4>  <p> Employee Full name :" + value.full_name +"</p> </h4>" +
-                        "<h4>  <p> Employee id :"+ value.national_id +" </p></h4>" + "<h4>  <p> Employee position :"+ value.position  +"</p></h4>" +"<a href='"+ value.url +"' > See more detai ? </a> <br><hr>")
+                      searchView.prepend("<tr>"+
+                        "<td>" + value.full_name +"</td>" +
+                         "<td>"+ value.position  +"</td>" +"<td>" +"<a href='"+ value.url +"' > See more detai ? </a> " +"</td> </tr>")
                    }
                     )
                   
