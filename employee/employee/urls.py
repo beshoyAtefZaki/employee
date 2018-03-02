@@ -10,7 +10,7 @@ from mainapp.views import(  home ,
                             create,
                             update_view,
                             delete_view,
-                            EmployeeApi,
+                           
                             )
 from search.views import SearchEmployeeListView,search_api
 
@@ -32,8 +32,7 @@ urlpatterns = [
      url(r'^salary/', include('salary.urls',
                         namespace="salary")),
 
-     url(r'^api/(?P<pk>\d+)/$', EmployeeApi.as_view()
-        , name='api_view'),
+     
      url(r'^search',SearchEmployeeListView.as_view() ,
                 name='search'),
        url(r'^sarch_api',search_api ,

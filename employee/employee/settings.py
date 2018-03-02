@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'siblings',
     'salary',
     'search',
-    'rest_framework',
+    
     ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
