@@ -2,6 +2,10 @@ from django.shortcuts import render ,redirect
 from django.views.generic import ListView ,DetailView
 from django.http import Http404
 from django.views.generic.edit import CreateView
+
+from django.core.paginator import( Paginator,
+									 EmptyPage,
+									 PageNotAnInteger)
 from .models import Employee
 from .forms import EmployeeForm
 from siblings.models import Sibilings
@@ -15,9 +19,12 @@ from .serilizers import  EmployeeSerialzier
 def home(request):
 	form = EmployeeForm()
 	qs = Employee.objects.all()
+	paginator = Paginator(qs, 4)
+	page = request.GET.get('page',1)
+	objects = paginator.page(page)
 	content={
 	'form':form,
-	'objects': qs
+	'objects': objects
 	} 
 	return render(request,'mainapp/home.html',content)
 
