@@ -10,6 +10,12 @@
   <meta name="beshoy" content="">
   <title>Employee </title>
   {% include 'css.html' %}
+  <style>
+  div {
+    
+    overflow: auto;; /* Enable scrolling if the sidenav has too much content */
+    }
+  </style>
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
@@ -20,13 +26,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Employees">
           <a class="nav-link" href="{% url 'home' %}">
             <i class="fa fa-fw fa-user"></i>
             <span class="nav-link-text">Employee App</span>
           </a>
         </li> 
-         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Create">
           <a class="nav-link" href="{% url 'create'%}">
             <i class="fa fa-fw fa-user"></i>
             <span class="nav-link-text">Create Employee</span>
@@ -118,6 +124,102 @@
 
 
         }})
+
+
+    </script>
+
+ <!-- work with the Deduction detailview -->
+    <script>
+
+        $(document).ready(function(){
+         
+              var addDeductionForm = $("#add-deduction")
+              var totalDeduction = $("#total-dudcation")
+              var deductionTable = $("#deduction-table")
+              var inputded       = $("#id_deductions")
+              var totalSalary = $("#total-salary")
+              addDeductionForm.submit(function(e){
+                  e.preventDefault();
+                   var thisForm= $(this);
+                   var endPoint = thisForm.attr("endpoint");
+                   var httpMethod=thisForm.attr("method");
+                   var formData = thisForm.serialize();
+
+
+              $.ajax({
+              url: endPoint,
+              method:httpMethod,
+              data:formData,
+              success:function(data){
+                  inputded.val("0")
+                  console.log("success")
+                  totalSalary.text("Total Salary :  " +data.total_salary)
+                   totalDeduction.text("Total Deductions :" +data.total_dudcation)
+                  deductionTable.prepend("<tr><"+"<td>"+ data.date +"</td>"+"<td>"+ data.deducation +"</td> </tr>")
+
+              },
+
+              error:function(erroData){
+                  console.log("error")
+              }
+
+
+              })
+
+              })
+
+        
+
+
+      })
+
+
+    </script>
+
+    <!-- work with the earnings detailview -->
+    <script>
+
+        $(document).ready(function(){
+         
+              var addEarningsForm = $("#add-earnings")
+              var totalEarnings = $("#total-earnings")
+              var earningTable = $("#earning-table")
+              var inputder      = $("#id_earnings")
+              var totalSalary = $("#total-salary")
+              addEarningsForm.submit(function(e){
+                  e.preventDefault();
+                   var thisForm= $(this);
+                   var endPoint = thisForm.attr("endpoint");
+                   var httpMethod=thisForm.attr("method");
+                   var formData = thisForm.serialize();
+
+
+              $.ajax({
+              url: endPoint,
+              method:httpMethod,
+              data:formData,
+              success:function(data){
+                  inputder.val("0")
+                  console.log("success")
+                  totalSalary.text("Total Salary :  " +data.total_salary)
+                   totalEarnings.text("Total Earnings :" +data.total_earnings)
+                  earningTable.append("<tr><"+"<td>"+ data.date +"</td>"+"<td>"+ data.earnings +"</td> </tr>")
+
+              },
+
+              error:function(erroData){
+                  console.log("error")
+              }
+
+
+              })
+
+              })
+
+        
+
+
+      })
 
 
     </script>

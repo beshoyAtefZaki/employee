@@ -15,25 +15,25 @@
       <div class="alert alert-primary" role="alert">
          Main Salary : {{ object.main_salary }}
       </div>
-      <div class="alert alert-primary" role="alert">
+    <div class="alert alert-primary" role="alert" id="total-earnings">
          Total Earnings : {{ object.total_earnings }}
       </div>
-       <div class="alert alert-primary" role="alert">
+       <div class="alert alert-primary" role="alert" id="total-dudcation">
          Total Deductions : {{ object.total_deductions }}
       </div>
-      <div class="alert alert-danger" role="alert">
+      <div class="alert alert-danger" role="alert" id ="total-salary">
          Total Salary : {{ object.total_salary }}
       </div>
     </div>
     <div class="col-6 text-left">
-      <form method='post' action="{% url 'salary:deduction' %}"> {{ d_form }}
+      <form method='post' action="{% url 'salary:deduction' %}" endpoint = "{% url 'salary:deduction' %}" id="add-deduction"> {{ d_form }}
         {% csrf_token %}
         <input type='hidden' name ='d_pk' value={{ object.id }}>
         <button type="submit" class="btn btn-info">Add Deduction </button>
        
       </form  >
 
-      <form method='post' action="{% url 'salary:earning' %}">
+      <form method='post' action="{% url 'salary:earning' %}" id="add-earnings" endpoint="{% url 'salary:earning' %}">
       {% csrf_token %}
        {{ e_form }}
        <input type='hidden' name ='e_pk' value={{ object.id }}>
@@ -51,28 +51,30 @@
       <table class="table table-bordered ">
         <thead>
           <tr>
-            <th scope="col">N</th>
+           
             <th scope="col">date</th>
             <th scope="col">deductions </th>
           </tr>
         </thead>
-         <tbody>
+         <tbody id ="deduction-table">
     
     
           {% for deduction in deductions %}
           <tr>
-           <th scope="row">{{ forloop.counter }}</th>
+           
               <td> {{deduction.timestamp}} </td>
                <td> {{deduction.deductions}} </td>
           </tr>
             {% endfor %}
+            </tbody>
+            <tfoot>
           <tr>
-            <th scope="row"></th>
+            
             <td>total </td>
             <td>{{object.total_deductions}}</td>
       
           </tr>
-        </tbody>
+        </tfoot>
       </table>
     </div>
 
@@ -84,28 +86,31 @@
       <table class="table table-bordered ">
         <thead>
           <tr>
-            <th scope="col">N</th>
+            
             <th scope="col">date</th>
             <th scope="col">earnings </th>
           </tr>
         </thead>
-         <tbody>
+         <tbody  id ="earning-table">
     
-    
+          
           {% for earning in earnings %}
           <tr>
-           <th scope="row">{{ forloop.counter }}</th>
+          
               <td> {{earning.timestamp}} </td>
                <td> {{earning.earnings}} </td>
           </tr>
             {% endfor %}
+             </tbody>
+          <tfoot>
           <tr>
-            <th scope="row"></th>
+             
             <td>total </td>
             <td>{{object.total_earnings}}</td>
       
           </tr>
-        </tbody>
+        </tfoot>
+       
       </table>
     </div>
   </div>

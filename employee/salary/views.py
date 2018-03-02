@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from django.views.generic import DetailView
 from django.contrib import messages
+from django.http import JsonResponse
+from datetime import datetime as dt
+# import datetime.datetime as dt
 from mainapp.models import Employee
 from .models import Salary,Deduction,Earnings
 from . forms import DeductionForm ,EarningsForm
@@ -44,6 +47,26 @@ def add_earning(request):
 			earnings 	= Earnings.objects.create(earnings=earnings)
 			earnings.save()
 			salary.earnings.add(earnings)
+			if request.is_ajax():
+				total_earnings = salary.total_earnings
+				earning = earnings.earnings
+				date = str(earnings.timestamp)
+				total_salary = salary.total_salary()
+				# print(str(date))
+				t_date = (date).split(" ")
+				# print(t_date)
+				y_date = t_date[0].split("-")
+				#print(y_date)
+				h_time = t_date[1].split(":")
+				# print(h_time)
+				d_time = dt(int(y_date[0]) ,int(y_date[1]) ,
+									int(y_date[2]) , int(h_time[0]) ,int(h_time[1]))
+				date_f = dt.strftime(d_time ,"%b %d %Y %I %M %p")
+				respond = {"total_earnings":total_earnings ,
+							"total_salary" : total_salary,
+							"earnings" : earning ,
+							"date" : date_f ,} 
+				return JsonResponse(respond)
 			return redirect(salary.get_absolute_url())
 	pass
 
@@ -57,6 +80,17 @@ def add_deduction(request):
 			deductions 	= Deduction.objects.create(deductions=deduction)
 			deductions.save()
 			salary.deductions.add(deductions)
+			if request.is_ajax():
+				total_dudcation = salary.total_deductions
+				deducation = deductions.deductions
+				date = deductions.timestamp
+				total_salary = salary.total_salary()
+
+				respond = {"total_dudcation":total_dudcation ,
+							"total_salary" : total_salary,
+							"deducation" : deducation ,
+							"date" : date ,} 
+				return JsonResponse(respond)
 			return redirect(salary.get_absolute_url())
 	pass
 
